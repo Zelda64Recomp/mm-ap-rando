@@ -1,5 +1,3 @@
-# Create a dylib from main.cpp
-
 cmake_minimum_required(VERSION 3.20)
 
 project(MMRecompRando LANGUAGES C CXX)
@@ -14,3 +12,7 @@ target_include_directories(MMRecompRando PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}/lib/N64ModernRuntime/librecomp/include
 )
+
+find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+target_include_directories(MMRecompRando PRIVATE ${Python3_INCLUDE_DIRS})
+target_link_libraries(MMRecompRando PRIVATE Python3::Python)
