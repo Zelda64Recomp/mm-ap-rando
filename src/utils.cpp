@@ -1,6 +1,5 @@
 #include "utils.h"
 
-#include <filesystem>
 #include <dlfcn.h>
 
 const char* get_mod_dylib_path() {
@@ -9,7 +8,7 @@ const char* get_mod_dylib_path() {
   return info.dli_fname;
 }
 
-std::string get_mod_zip_path() {
+std::filesystem::path get_mod_zip_path() {
   auto dylib_path = get_mod_dylib_path();
   std::filesystem::path path(dylib_path);
   path.replace_extension(".zip");
@@ -19,5 +18,11 @@ std::string get_mod_zip_path() {
   path.replace_filename(path.stem().string().substr(3) + ".zip");
   #endif
 
-  return path.string();
+  return path;
+}
+
+std::filesystem::path get_mod_folder() {
+  auto dylib_path = get_mod_dylib_path();
+  auto mods_path = std::filesystem::path(dylib_path).parent_path();
+  return mods_path;
 }
