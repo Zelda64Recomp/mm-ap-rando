@@ -16,6 +16,7 @@ with zipfile.PyZipFile("build/MMRecompRando.zip", mode="w") as zip_module:
   zip_module.write("lib/archipelago/Utils.py", "Utils.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/settings.py", "settings.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/requirements.txt", "requirements.txt", zipfile.ZIP_DEFLATED)
+  zip_module.write("scripts/MMGenerate.py", "MMGenerate.py", zipfile.ZIP_DEFLATED)
 
   zip_module.write("lib/archipelago/worlds/__init__.py", "worlds/__init__.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/worlds/AutoSNIClient.py", "worlds/AutoSNIClient.py", zipfile.ZIP_DEFLATED)
@@ -23,7 +24,7 @@ with zipfile.PyZipFile("build/MMRecompRando.zip", mode="w") as zip_module:
   zip_module.write("lib/archipelago/worlds/Files.py", "worlds/Files.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/worlds/LauncherComponents.py", "worlds/LauncherComponents.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/worlds/alttp/EntranceRandomizer.py", "worlds/alttp/EntranceRandomizer.py", zipfile.ZIP_DEFLATED)
-  zip_module.write("lib/archipelago/worlds/alttp/Text.py", "worlds/alttp/Text.py", zipfile.ZIP_DEFLATED)
+  # zip_module.write("lib/archipelago/worlds/alttp/Text.py", "worlds/alttp/Text.py", zipfile.ZIP_DEFLATED)
   zip_module.write("scripts/__init__.py", "worlds/alttp/__init__.py", zipfile.ZIP_DEFLATED)  
 
   # write necessary worlds to zip
@@ -40,7 +41,7 @@ with zipfile.PyZipFile("build/MMRecompRando.zip", mode="w") as zip_module:
           zip_module.write(full_path, zip_path, zipfile.ZIP_DEFLATED)
 
   # write necessary dependencies to deps folder in zip
-  for package in ["typing_extensions.py", "yaml", "schema.py", "websockets", "jellyfish"]:
+  for package in ["typing_extensions.py", "yaml", "schema.py", "websockets"]:
     package_root = site_packages + "/" + package
     if package.endswith(".py"):
         zip_module.write(package_root, "deps/" + package, zipfile.ZIP_DEFLATED)
