@@ -1,4 +1,3 @@
-import ModuleUpdate
 import worlds
 from worlds.AutoWorld import AutoWorldRegister
 from worlds.mm_recomp import MMRWorld
