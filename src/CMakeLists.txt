@@ -17,9 +17,11 @@ find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 target_include_directories(MMRecompRando PRIVATE ${Python3_INCLUDE_DIRS})
 target_link_libraries(MMRecompRando PRIVATE Python3::Python)
 
-add_custom_command(TARGET MMRecompRando POST_BUILD
-    COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/scripts/package_mod.py
+add_custom_target(BuildModZip ALL
+    COMMAND ${Python3_EXECUTABLE} ${CMAKE_SOURCE_DIR}/scripts/package_mod.py ${CMAKE_CURRENT_BINARY_DIR}
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     COMMENT "Packaging mod zip"
     DEPENDS ${CMAKE_SOURCE_DIR}/scripts/package_mod.py
 )
+
+add_dependencies(MMRecompRando BuildModZip)

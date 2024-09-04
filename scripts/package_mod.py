@@ -3,10 +3,12 @@ import sys
 import os
 
 site_packages = sys.path[-1]
+output_path = sys.argv[1]
+print(f"Packaging MMRecompRando to {output_path}/MMRecompRando.zip")
 
-with zipfile.PyZipFile("build/MMRecompRando.zip", mode="w") as zip_module:
+with zipfile.PyZipFile(f"{output_path}/MMRecompRando.zip", mode="w") as zip_module:
   zip_module.write("lib/archipelago/BaseClasses.py", "BaseClasses.py", zipfile.ZIP_DEFLATED)
-  zip_module.write("lib/archipelago/Generate.py", "Generate.py", zipfile.ZIP_DEFLATED)
+  # zip_module.write("lib/archipelago/Generate.py", "Generate.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/Fill.py", "Fill.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/Main.py", "Main.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/ModuleUpdate.py", "ModuleUpdate.py", zipfile.ZIP_DEFLATED)
@@ -24,11 +26,11 @@ with zipfile.PyZipFile("build/MMRecompRando.zip", mode="w") as zip_module:
   zip_module.write("lib/archipelago/worlds/Files.py", "worlds/Files.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/worlds/LauncherComponents.py", "worlds/LauncherComponents.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/worlds/alttp/EntranceRandomizer.py", "worlds/alttp/EntranceRandomizer.py", zipfile.ZIP_DEFLATED)
-  # zip_module.write("lib/archipelago/worlds/alttp/Text.py", "worlds/alttp/Text.py", zipfile.ZIP_DEFLATED)
-  zip_module.write("scripts/__init__.py", "worlds/alttp/__init__.py", zipfile.ZIP_DEFLATED)  
+  zip_module.write("lib/archipelago/worlds/alttp/Text.py", "worlds/alttp/Text.py", zipfile.ZIP_DEFLATED)
+  zip_module.write("scripts/__init__.py", "worlds/alttp/__init__.py", zipfile.ZIP_DEFLATED)
 
   # write necessary worlds to zip
-  for world in ["generic", "mm-recomp"]:
+  for world in ["generic", "mm_recomp"]:
     world_root = "lib/archipelago/worlds/" + world
     for root, dirs, files in os.walk(world_root):
         for file in files:
@@ -53,4 +55,3 @@ with zipfile.PyZipFile("build/MMRecompRando.zip", mode="w") as zip_module:
                   rel_path = os.path.relpath(full_path, package_root)
                   zip_path = os.path.join("deps", package, rel_path)
                   zip_module.write(full_path, zip_path, zipfile.ZIP_DEFLATED)
-

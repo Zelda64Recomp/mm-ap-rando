@@ -9,25 +9,9 @@
 void generate() {
   auto dylib_path = get_mod_dylib_path();
 
-  // initialize python
-  // Py_SetProgramName(L"Generate.py");
-  
-  PyConfig config;
-  PyConfig_InitPythonConfig(&config);
-  config.isolated = 1;
-
-  std::filesystem::path player_files_path = get_mod_folder() / "Players";
-  const char *argv[] = {
-    "Generate.py",
-    "--player_files_path",
-    player_files_path.c_str()
-  };
-
-  PyStatus status = PyConfig_SetBytesArgv(&config, 3, (char * const *)argv);
-
-  Py_InitializeFromConfig(&config);
+  Py_Initialize();
   PyRun_SimpleString("import sys");
-  
+
   // remove last path entry and add the zip file's dep folder based on the current dynamic library path
   PyRun_SimpleString("sys.path.pop()");
   auto mod_zip_path = std::string("sys.path.insert(0, '") + get_mod_zip_path().string() + "')";
@@ -35,11 +19,33 @@ void generate() {
   auto mod_deps_path = std::string("sys.path.insert(0, '") + get_mod_zip_path().string() + "/deps/')";
   PyRun_SimpleString(mod_deps_path.c_str());
 
+  // debug print sys.path
+  PyRun_SimpleString("print(sys.path)");
+
+  // Create a Python list to simulate sys.argv
+  std::filesystem::path player_files_path = get_mod_folder() / "Players";
+  std::vector<std::string> args = {
+    "MMGenerate.py",  // argv[0] is typically the script name
+    "--player_files_path", player_files_path.string(),
+    "--outputpath", get_mod_folder().string()
+  };
+  
+  PyObject* py_argv = PyList_New(args.size());
+  for (size_t i = 0; i < args.size(); ++i) {
+    PyList_SetItem(py_argv, i, PyUnicode_FromString(args[i].c_str()));
+  }
+
+  // Set sys.argv
+  PySys_SetObject("argv", py_argv);
+
+  printf("going to call python generate\n");
   PyRun_SimpleString(
     "from MMGenerate import main as generate\n"
     "generate()"
   );
-  
+
+  Py_DECREF(py_argv);
+
   // finalize python
   Py_Finalize();
 }

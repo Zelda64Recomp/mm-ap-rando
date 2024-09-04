@@ -3,7 +3,7 @@
 #include <librecomp/recomp.h>
 
 int main() {
-  void* dylib = dlopen("../libMMRecompRando.dylib", RTLD_LAZY);
+  void* dylib = dlopen("../src/libMMRecompRando.dylib", RTLD_LAZY);
   if (!dylib) {
     fprintf(stderr, "Error loading dylib: %s\n", dlerror());
   }
