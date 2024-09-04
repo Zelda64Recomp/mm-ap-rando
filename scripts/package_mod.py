@@ -20,7 +20,7 @@ with zipfile.PyZipFile(f"{output_path}/MMRecompRando.zip", mode="w") as zip_modu
   zip_module.write("lib/archipelago/requirements.txt", "requirements.txt", zipfile.ZIP_DEFLATED)
   zip_module.write("scripts/MMGenerate.py", "MMGenerate.py", zipfile.ZIP_DEFLATED)
 
-  zip_module.write("lib/archipelago/worlds/__init__.py", "worlds/__init__.py", zipfile.ZIP_DEFLATED)
+  zip_module.write("scripts/worlds_init.py", "worlds/__init__.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/worlds/AutoSNIClient.py", "worlds/AutoSNIClient.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/worlds/AutoWorld.py", "worlds/AutoWorld.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/worlds/Files.py", "worlds/Files.py", zipfile.ZIP_DEFLATED)
