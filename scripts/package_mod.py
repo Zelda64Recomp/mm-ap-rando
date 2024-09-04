@@ -8,10 +8,10 @@ print(f"Packaging MMRecompRando to {output_path}/MMRecompRando.zip")
 
 with zipfile.PyZipFile(f"{output_path}/MMRecompRando.zip", mode="w") as zip_module:
   zip_module.write("lib/archipelago/BaseClasses.py", "BaseClasses.py", zipfile.ZIP_DEFLATED)
-  # zip_module.write("lib/archipelago/Generate.py", "Generate.py", zipfile.ZIP_DEFLATED)
+  zip_module.write("lib/archipelago/Generate.py", "Generate.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/Fill.py", "Fill.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/Main.py", "Main.py", zipfile.ZIP_DEFLATED)
-  zip_module.write("lib/archipelago/ModuleUpdate.py", "ModuleUpdate.py", zipfile.ZIP_DEFLATED)
+  zip_module.write("scripts/DummyModuleUpdate.py", "ModuleUpdate.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/MultiServer.py", "MultiServer.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/NetUtils.py", "NetUtils.py", zipfile.ZIP_DEFLATED)
   zip_module.write("lib/archipelago/Options.py", "Options.py", zipfile.ZIP_DEFLATED)
